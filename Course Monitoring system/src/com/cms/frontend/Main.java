@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.util.Scanner;
 
 import com.cms.DAO.ProvideConnection;
+import com.cms.adminfunctions.AdminLogin;
+import com.cms.adminfunctions.AdminOptions;
+import com.cms.faculty.FacultyUtil;
+import com.cms.facultyfunctions.FacultyLogin;
+import com.cms.facultyfunctions.FacultyOptions;
 
 public class Main {
 
@@ -29,13 +34,15 @@ public class Main {
 		case 1: {
 			
 			System.out.println("Welcome Admin");
+			System.out.println("=============");
 			
-			 Connection conn= ProvideConnection.getConnection();
-			 System.out.println(conn);
+		    AdminOptions.adminFunctions();
 			break;
 		}
 		case 2:{
 			System.out.println("Welcome Faculty");
+			System.out.println("===============");
+			FacultyOptions.facultyFunctions();
 			break;
 		}
 		case 3:{

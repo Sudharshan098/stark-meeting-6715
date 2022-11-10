@@ -14,6 +14,18 @@ public class Faculty {
 			super();
 		}
 		public Faculty(int facultyId, String facultyName, String facultyAddress, String mobile, String email,
+				String username) {
+			super();
+			this.facultyId = facultyId;
+			this.facultyName = facultyName;
+			this.facultyAddress = facultyAddress;
+			this.mobile = mobile;
+			this.email = email;
+			this.username = username;
+		}
+		
+		
+		public Faculty(int facultyId, String facultyName, String facultyAddress, String mobile, String email,
 				String username, String password) {
 			super();
 			this.facultyId = facultyId;
@@ -66,11 +78,11 @@ public class Faculty {
 		public void setPassword(String password) {
 			this.password = password;
 		}
+		
 		@Override
 		public String toString() {
 			return "Faculty [facultyId=" + facultyId + ", facultyName=" + facultyName + ", facultyAddress="
-					+ facultyAddress + ", mobile=" + mobile + ", email=" + email + ", username=" + username
-					+ ", password=" + password + "]";
+					+ facultyAddress + ", mobile=" + mobile + ", email=" + email + ", username=" + username + "]";
 		}
 		@Override
 		public int hashCode() {
