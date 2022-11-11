@@ -3,7 +3,7 @@ package com.cms.adminfunctions;
 import java.util.Scanner;
 
 import com.cms.batch.CreateBatch;
-import com.cms.batch.viewBatch;
+import com.cms.batch.ViewBatch;
 import com.cms.course.CreateCourse;
 import com.cms.course.viewCourse;
 import com.cms.courseplan.CreateCoursePlan;
@@ -92,7 +92,7 @@ public class AdminOptions {
 			break;
 		}
 		case 13:{
-			viewBatch.getBatchList();
+			ViewBatch.getBatchList();
 			break;
 		}
 		case 14:{
