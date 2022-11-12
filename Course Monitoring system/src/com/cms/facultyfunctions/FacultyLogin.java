@@ -1,8 +1,11 @@
 package com.cms.facultyfunctions;
 
 import java.util.Scanner;
+
+import com.cms.Exception.FacultyException;
 import com.cms.faculty.FacultyUtil;
 import com.cms.faculty.FacultyUtilImpl;
+import com.cms.frontend.Main;
 
 public class FacultyLogin {
 	
@@ -10,6 +13,10 @@ public class FacultyLogin {
 		
 		 Scanner sc=new Scanner(System.in);
 		 
+			System.out.println("Faculty Login");
+			System.out.println("=============");
+			System.out.println();
+			
 		 System.out.println("Enter Faculty Username");
 		 String username= sc.next();
 		 
@@ -19,8 +26,14 @@ public class FacultyLogin {
 		
 		 String str="";
 		 FacultyUtil ad=new FacultyUtilImpl();
-		 str=ad.facultyLogin(username, password);
-		 System.out.println(str);
+		 try {
+			ad.facultyLogin(username, password);
+
+		} catch (FacultyException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
 	}
 
 }
