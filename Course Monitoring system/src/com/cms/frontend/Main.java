@@ -36,13 +36,13 @@ public class Main {
 			System.out.println("Welcome Admin");
 			System.out.println("=============");
 			
-		    AdminOptions.adminFunctions();
+		    AdminLogin.Login();
 			break;
 		}
 		case 2:{
 			System.out.println("Welcome Faculty");
 			System.out.println("===============");
-			FacultyOptions.facultyFunctions();
+			FacultyLogin.Login();
 			break;
 		}
 		case 3:{

@@ -12,6 +12,15 @@ public class CoursePlan {
 	public CoursePlan() {
 		super();
 	}
+	
+	public CoursePlan(int batchId, int dayNumber, String topic, String status) {
+		super();
+		this.batchId = batchId;
+		this.dayNumber = dayNumber;
+		this.topic = topic;
+		this.status = status;
+	}
+
 	public CoursePlan(int planId, int batchId, int dayNumber, String topic, String status) {
 		super();
 		this.planId = planId;

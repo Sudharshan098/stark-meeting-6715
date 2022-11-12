@@ -8,18 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cms.DAO.ProvideConnection;
+import com.cms.adminfunctions.AdminOptions;
+import com.cms.frontend.Main;
 import com.cms.models.Batch;
 import com.cms.models.Course;
 import com.cms.models.CoursePlan;
 import com.cms.models.Faculty;
+import com.cms.models.Report;
 
 public class AdminUtilImpl implements AdminUtil {
 
 	@Override
-	public String adminLogin(String username, String password) {
+	public void adminLogin(String username, String password) {
 		
 		
-		String message="Admin not logged in...";
 		
 		
 		try (Connection conn= ProvideConnection.getConnection()){
@@ -29,18 +31,23 @@ public class AdminUtilImpl implements AdminUtil {
 			
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()) {
-				message="Welcome Admin "+rs.getString("username");
+				System.out.println("Welcome Admin "+rs.getString("username"));
+				System.out.println();
+
+				AdminOptions.adminFunctions();
 			}
 			else {
-				message="Invalid Username or Password";
+				System.out.println("Invalid Username or Password");
+				System.out.println();
+				Main.main(null);
 			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			}
 		
-
-		return message;
+	
+		
 	}
 
 	@Override
@@ -254,6 +261,212 @@ public class AdminUtilImpl implements AdminUtil {
 		
 
 		return list;
+	}
+
+	@Override
+	public String allocatefaculty(int facId,int batchId) {
+		String message="Faculty not allocated to batch";
+		
+		
+		try (Connection conn= ProvideConnection.getConnection()){
+			PreparedStatement ps= conn.prepareStatement("update batch set facultyid=? where batchid=?");
+			
+			ps.setInt(1, facId );
+			ps.setInt(2, batchId);
+			
+				
+			int rs=ps.executeUpdate();
+			if(rs>0) {
+				message="Faculty allocated succesfully";
+			}
+						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			}
+		
+
+		return message;
+		
+	}
+
+	@Override
+	public String updateFacAddress(int facId,String newAddress) {
+		
+String message="Faculty Address not updated......";
+		
+		
+		try (Connection conn= ProvideConnection.getConnection()){
+			PreparedStatement ps= conn.prepareStatement("update Faculty set facultyaddress=? where facultyId=?");
+			
+			ps.setString(1, newAddress );
+			ps.setInt(2, facId);
+			
+				
+			int rs=ps.executeUpdate();
+			if(rs>0) {
+				message="Faculty Address updated succesfully";
+			}
+						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			}
+		
+
+		return message;
+	}
+
+	@Override
+	public String updateCourseFees(int courseId, int fees) {
+		String message="Course Fees updated......";
+		
+		
+		try (Connection conn= ProvideConnection.getConnection()){
+			PreparedStatement ps= conn.prepareStatement("update course set fees=? where courseId=?");
+			
+			ps.setInt(1, fees );
+			ps.setInt(2, courseId);
+			
+				
+			int rs=ps.executeUpdate();
+			if(rs>0) {
+				message="Course Fees updated succesfully";
+			}
+						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			}
+		
+
+		return message;
+	}
+
+	@Override
+	public String updateNosFromBatch(int batchId, int NumOfStud) {
+		String message="Students count not updated......";
+		
+		
+		try (Connection conn= ProvideConnection.getConnection()){
+			PreparedStatement ps= conn.prepareStatement("update batch set NumberOfStudents = NumberOfStudents+? where batchId=?");
+			
+			ps.setInt(1, NumOfStud );
+			ps.setInt(2, batchId);
+			
+				
+			int rs=ps.executeUpdate();
+			if(rs>0) {
+				message="Students count updated succesfully";
+			}
+						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			}
+		
+
+		return message;
+	}
+
+	@Override
+	public String changeFacFromBatch(int batchId, int newFacId) {
+		String message="Faculty not changed......";
+		
+		
+		try (Connection conn= ProvideConnection.getConnection()){
+			PreparedStatement ps= conn.prepareStatement("update batch set facultyId =? where batchid=?");
+			
+			ps.setInt(1, newFacId );
+			ps.setInt(2, batchId);
+			
+				
+			int rs=ps.executeUpdate();
+			if(rs>0) {
+				message="Faculty changed succesfully";
+			}
+						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			}
+		
+
+		return message;
+	}
+
+	@Override
+	public List<CoursePlan> viewCoursePlanStatus(int planId) {
+		  List<CoursePlan> list = new ArrayList<>();
+		
+		
+		try (Connection conn= ProvideConnection.getConnection()){
+			PreparedStatement ps= conn.prepareStatement("select * from courseplan where planId=?");
+			
+			ps.setInt(1, planId);
+			
+				
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				
+				list.add(new CoursePlan(rs.getInt("planid"), rs.getInt("batchId"), rs.getInt("dayNumber"), rs.getString("topic"),rs.getString("status") ));
+				
+			}
+						
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			}
+		
+
+		return list;
+	}
+
+	@Override
+	public List<CoursePlan> viewDaywiseUpdateOfBatch(int batchId, int dayNumber) {
+		  List<CoursePlan> list = new ArrayList<>();
+			
+			
+			try (Connection conn= ProvideConnection.getConnection()){
+				PreparedStatement ps= conn.prepareStatement("select * from courseplan where batchId=? AND dayNumber=?");
+				
+				ps.setInt(1, batchId);
+				ps.setInt(2, dayNumber);
+				
+					
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					
+					list.add(new CoursePlan(rs.getInt("planid"), rs.getInt("batchId"), rs.getInt("dayNumber"), rs.getString("topic"),rs.getString("status") ));
+					
+				}
+							
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+				}
+			
+
+			return list;
+	}
+
+	@Override
+	public List<Report> generateReport(int batchId) {
+		 List<Report> list = new ArrayList<>();
+		
+			
+			try (Connection conn= ProvideConnection.getConnection()){
+				PreparedStatement ps= conn.prepareStatement("select b.batchId,c.courseName,f.facultyName,b.NumberOfStudents,b.batchStartdate,b.duration  from batch b INNER JOIN course c INNER JOIN faculty f ON b.courseid = c.courseID AND b.facultyId = f.facultyId where batchId=?");
+				
+				ps.setInt(1, batchId);
+				
+				
+					
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					
+					list.add(new Report(rs.getInt("batchId"), rs.getString("courseName"), rs.getString("facultyName"),  rs.getInt("NumberOfStudents"), rs.getString("batchStartdate"), rs.getString("duration")) );
+				}
+							
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+				}
+			
+
+			return list;
 	}
 
 
