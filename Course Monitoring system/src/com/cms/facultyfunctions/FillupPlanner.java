@@ -36,6 +36,8 @@ public class FillupPlanner {
 			 CoursePlan cp= new CoursePlan(batchId, dayNumber, topic, status);
 			 FacultyUtil ad=new FacultyUtilImpl();
 			 String result;
+			 System.out.println();
+
 			try {
 				result = ad.fillupPlanner(cp);
 				 System.out.println(result);

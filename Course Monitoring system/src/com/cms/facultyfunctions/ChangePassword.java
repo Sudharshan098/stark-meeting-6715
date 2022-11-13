@@ -32,6 +32,7 @@ public class ChangePassword {
 		try {
 			str = ad.changePassword(username, password, newPassword);
 			 System.out.println(str);
+			 System.out.println();
 		} catch (FacultyException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();

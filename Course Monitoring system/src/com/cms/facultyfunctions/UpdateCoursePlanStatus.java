@@ -30,6 +30,8 @@ public class UpdateCoursePlanStatus {
 		
 		 FacultyUtil ad=new FacultyUtilImpl();
 		 String result;
+		 System.out.println();
+
 		try {
 			result = ad.updateCourseplanStatus(id, stat);
 			 System.out.println(result);

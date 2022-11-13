@@ -48,6 +48,8 @@ public class CreateCoursePlan {
 		try {
 			result = adu.addCoursePlan(courseplan);
 			System.out.println(result);
+			 System.out.println();
+
 
 		} catch (CoursePlanException e) {
 			System.out.println(e.getMessage());

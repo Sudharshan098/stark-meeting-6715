@@ -73,21 +73,17 @@ public class FacultyUtilImpl implements FacultyUtil{
 			PreparedStatement ps= conn.prepareStatement("update faculty set password=? where username=? AND password=?");
 			ps.setString(1, newPassword);
 			ps.setString(2, username);
-			ps.setString(2, password);
+			ps.setString(3, password);
 
-			ResultSet rs=ps.executeQuery();
-			if(rs.next()) {
-				message="Password changed successfully "+rs.getString("username");
+			int  rs=ps.executeUpdate();
+			if(rs>0) {
+				message="Password changed successfully "+username;
 			}
 					
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			}
-		
-		
-		
-		
-		
+
 		return message;
 		
 	}
@@ -116,13 +112,8 @@ public class FacultyUtilImpl implements FacultyUtil{
 				System.out.println(e.getMessage());
 				}
 			
-			
-			
-			
-			
 			return message;
-		
-		
+
 	}
 
 	@Override
@@ -147,11 +138,7 @@ public class FacultyUtilImpl implements FacultyUtil{
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			}
-		
-		
-		
-		
-		
+
 		return message;
 	
 	}

@@ -24,6 +24,8 @@ public class ViewCoursePlan {
 		try {
 			list = fu.viewCoursePlan();
 			list.forEach(s->System.out.println(s));
+			 System.out.println();
+
 		} catch (CoursePlanException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
